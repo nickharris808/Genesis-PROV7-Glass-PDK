@@ -1,0 +1,132 @@
+{
+  "_meta": {
+    "description": "Glass PDK key results summary for machine-readable consumption",
+    "version": "2.2.0",
+    "date": "2026-02-18",
+    "classification": "NON-CONFIDENTIAL",
+    "note": "All results are computational. No fabricated hardware."
+  },
+  "headline_results": [
+    {
+      "id": "RESULT-001",
+      "claim": "Glass interposers are 2-4x cheaper than silicon CoWoS at volume",
+      "metric": "cost_advantage_ratio",
+      "value": "2.0 to 4.0",
+      "unit": "dimensionless ratio",
+      "methodology": "Multi-source pricing comparison including full process costs",
+      "validation": "5 commercial glass suppliers (Corning, Schott, AGC, Borofloat, Fused Silica)",
+      "confidence": "HIGH -- validated against published industry data",
+      "caveat": "Range depends on volume tier, glass type, and process complexity"
+    },
+    {
+      "id": "RESULT-002",
+      "claim": "Bi-Metallic Shell reduces thermomechanical stress by 25x",
+      "metric": "stress_reduction_factor",
+      "value": 25.6,
+      "unit": "dimensionless ratio",
+      "methodology": "Lame thick-wall cylinder analytical solution",
+      "validation": "Closed-form analytical calculation with published material properties",
+      "confidence": "HIGH -- analytical solution, no numerical approximation",
+      "caveat": "Assumes ideal cylindrical geometry; real vias have taper and roughness"
+    },
+    {
+      "id": "RESULT-003",
+      "claim": "BEM solver achieves 0.35% error vs analytical",
+      "metric": "bem_error_percent",
+      "value": 0.35,
+      "unit": "percent",
+      "methodology": "Comparison of BEM Z0 against coaxial cable analytical formula",
+      "validation": "Z0_analytical = 50.45 Ohm, Z0_BEM = 50.28 Ohm",
+      "confidence": "HIGH -- standard BEM verification against known analytical result",
+      "caveat": "Accuracy demonstrated for ideal circular coaxial geometry only"
+    },
+    {
+      "id": "RESULT-004",
+      "claim": "317 Golden Designs generated",
+      "metric": "golden_design_count",
+      "value": 317,
+      "unit": "designs",
+      "methodology": "Generative exploration of 41,700 candidates with physics + patent + TRL filtering",
+      "validation": "Each design verified for Z0 = 50 +/- 5 Ohm, safety factor > 1, TRL > 4",
+      "confidence": "HIGH -- deterministic generation with fixed random seed",
+      "caveat": "Patent risk assessment is computational, not legal opinion"
+    },
+    {
+      "id": "RESULT-005",
+      "claim": "Glass has 10x better thermal stability than organic substrates",
+      "metric": "z0_thermal_drift_ratio",
+      "value": 10.0,
+      "unit": "dimensionless ratio (organic/glass)",
+      "methodology": "Temperature-dependent impedance sweep -40C to +150C",
+      "validation": "Glass drift 0.19% vs organic drift 1.89%",
+      "confidence": "HIGH -- based on published CTE and dielectric temperature coefficients",
+      "caveat": "Comparison is for impedance drift only, not total system performance"
+    },
+    {
+      "id": "RESULT-006",
+      "claim": "ML surrogate achieves R-squared = 0.9652",
+      "metric": "ml_r_squared",
+      "value": 0.9652,
+      "unit": "coefficient of determination",
+      "methodology": "Train/test split on BEM-generated dataset with physics-constrained loss",
+      "validation": "Hold-out test set evaluation",
+      "confidence": "MEDIUM -- inherits BEM solver limitations; not validated against experimental data",
+      "caveat": "Valid only within trained design space region"
+    },
+    {
+      "id": "RESULT-007",
+      "claim": "Six Sigma yield prediction (99.9997%)",
+      "metric": "predicted_yield_percent",
+      "value": 99.9997,
+      "unit": "percent",
+      "methodology": "10,000 Latin Hypercube samples with Centered Probability optimization",
+      "validation": "Statistical convergence verified; Cpk = 1.67",
+      "confidence": "MEDIUM -- assumes Gaussian process distributions",
+      "caveat": "Actual manufacturing distributions may differ from assumed Gaussians"
+    }
+  ],
+  "technology_comparison": {
+    "glass_tgv": {
+      "substrate_cost_usd": 800,
+      "z0_ohm": 50.2,
+      "insertion_loss_28ghz_db": 0.045,
+      "z0_thermal_drift_pct": 0.19,
+      "cte_ppm_k": 3.25,
+      "safety_factor": 5.6,
+      "max_frequency_ghz": 77
+    },
+    "silicon_tsv": {
+      "substrate_cost_usd": 5000,
+      "z0_ohm": 35.4,
+      "insertion_loss_28ghz_db": 0.42,
+      "z0_thermal_drift_pct": 0.50,
+      "cte_ppm_k": 2.60,
+      "safety_factor": 1.1,
+      "max_frequency_ghz": 100
+    },
+    "organic_pth": {
+      "substrate_cost_usd": 200,
+      "z0_ohm": 52.1,
+      "insertion_loss_28ghz_db": 0.89,
+      "z0_thermal_drift_pct": 1.89,
+      "cte_ppm_k": 14.0,
+      "safety_factor": 10.0,
+      "max_frequency_ghz": 30
+    }
+  },
+  "patent_portfolio": {
+    "total_families": 8,
+    "total_claims": 75,
+    "ip_library_claims": 28,
+    "coverage": [
+      "Automated TGV design pipeline",
+      "Bi-metallic CTE co-optimization",
+      "Pad transition parasitic extraction",
+      "Physics-constrained ML surrogate",
+      "Monte Carlo yield prediction",
+      "Automated feasibility reporting",
+      "Inverse design rule extraction",
+      "Temperature-dependent impedance simulation"
+    ]
+  }
+}

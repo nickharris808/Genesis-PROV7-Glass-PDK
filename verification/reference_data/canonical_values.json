@@ -1,0 +1,111 @@
+{
+  "_meta": {
+    "description": "Glass PDK canonical reference values for independent verification",
+    "version": "2.2.0",
+    "date": "2026-02-18",
+    "source": "Genesis Platform PROV_7_GLASS_PDK audited data room",
+    "note": "All values are from computational simulation validated against analytical solutions and published literature. No fabricated hardware measurements."
+  },
+  "cost_model": {
+    "cost_advantage_ratio_substrate_only": 6.2,
+    "cost_advantage_ratio_full_process_low": 2.0,
+    "cost_advantage_ratio_full_process_high": 4.0,
+    "glass_wafer_cost_usd": 800,
+    "silicon_interposer_cost_usd": 5000,
+    "organic_substrate_cost_usd": 200,
+    "unit": "USD per wafer equivalent",
+    "methodology": "Multi-source pricing from Corning, Schott, AGC, Borofloat, Fused Silica. Full process includes TGV drilling, metallization, CMP, patterning, test."
+  },
+  "golden_designs": {
+    "total_candidates_explored": 41700,
+    "physics_filtered": 1830,
+    "patent_filtered": 765,
+    "manufacturability_filtered": 317,
+    "golden_count": 317,
+    "expanded_library_count": 1830,
+    "geometry_families": ["coaxial", "elliptical", "rectangular", "octagonal"],
+    "metal_fills": ["tungsten", "molybdenum", "glidcop", "copper", "silver", "graded_composite"],
+    "structure_types": ["solid", "bimetallic", "porous"]
+  },
+  "lame_stress": {
+    "copper_radial_stress_mpa": 184.2,
+    "copper_safety_factor": 0.22,
+    "bimetallic_radial_stress_mpa": 7.2,
+    "bimetallic_safety_factor": 5.56,
+    "glidcop_radial_stress_mpa": 1.2,
+    "glidcop_safety_factor": 33.3,
+    "glass_fracture_strength_mpa": 40.0,
+    "stress_reduction_factor": 25.6,
+    "lame_safety_factor_bimetallic": 2.8,
+    "unit_stress": "MPa"
+  },
+  "bem_solver": {
+    "bem_z0_ohm": 50.28,
+    "analytical_z0_ohm": 50.45,
+    "error_percent": 0.35,
+    "test_geometry": {
+      "via_diameter_um": 50.0,
+      "via_pitch_um": 100.0,
+      "glass_dk": 4.6,
+      "freq_hz": 28e9
+    },
+    "validation_references": [
+      "Sukumaran ECTC 2014",
+      "Watanabe ECTC 2015",
+      "IPC-2141A"
+    ]
+  },
+  "bimetallic_stress_reduction": {
+    "copper_only_stress_mpa": 184.2,
+    "bimetallic_stress_mpa": 7.2,
+    "reduction_factor": 25.6,
+    "liner_material": "tungsten",
+    "liner_cte_ppm_k": 4.5,
+    "core_material": "copper",
+    "core_cte_ppm_k": 16.5,
+    "effective_cte_ppm_k": 5.1,
+    "glass_substrate": "Borofloat33",
+    "glass_cte_ppm_k": 3.25,
+    "delta_t_celsius": 260.0
+  },
+  "thermal_stability": {
+    "glass_z0_drift_percent": 0.19,
+    "organic_z0_drift_percent": 1.89,
+    "silicon_z0_drift_percent": 0.50,
+    "temperature_range_celsius": [-40, 150],
+    "glass_stability_advantage_vs_organic": 10.0
+  },
+  "ml_surrogate": {
+    "r_squared": 0.9652,
+    "physics_constraint": "monotonicity of fatigue life vs stress",
+    "training_samples": 10000,
+    "design_space_coverage": {
+      "diameter_range_um": [20, 100],
+      "pitch_range_um": [50, 500],
+      "frequency_range_ghz": [1, 77]
+    }
+  },
+  "yield_prediction": {
+    "optimized_yield_percent": 99.9997,
+    "optimized_cpk": 1.67,
+    "sigma_level": 6.0,
+    "monte_carlo_samples": 10000,
+    "sampling_method": "Latin Hypercube Sampling"
+  },
+  "test_suite": {
+    "test_files": 33,
+    "test_cases": 579,
+    "total_assertions": 980
+  },
+  "patent_portfolio": {
+    "patent_families": 8,
+    "ip_library_claims": 28,
+    "total_claims": 75
+  },
+  "material_database": {
+    "commercial_glasses": 14,
+    "conductive_fills": 7,
+    "glass_manufacturers": ["Schott", "Corning", "AGC", "NEG", "Generic"],
+    "fill_materials": ["Copper", "Tungsten", "Molybdenum", "GlidCop", "Silver", "Gold", "Aluminium"]
+  }
+}

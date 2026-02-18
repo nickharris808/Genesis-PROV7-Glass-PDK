@@ -1,0 +1,4 @@
+# Glass PDK verification script dependencies
+# verify_claims.py uses only the Python standard library:
+#   json, math, os, sys, pathlib
+# No third-party packages are required.
