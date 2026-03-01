@@ -14,7 +14,7 @@ The Glass PDK is the first simulation platform purpose-built for Through-Glass V
 
 Glass substrates are poised to disrupt the $500 billion AI packaging market. At volume, glass interposers deliver a **2-4x cost advantage** over silicon CoWoS (validated against 5 commercial glass suppliers), with 10x superior thermal dimensional stability, lower dielectric loss at millimeter-wave frequencies, and the ability to scale to panel-level processing at sizes up to 510mm x 515mm -- more than 4x the area of a 300mm silicon wafer. The fundamental challenge preventing adoption is design complexity: no existing Process Design Kit (PDK) addresses the coupled thermal-mechanical-electrical physics unique to glass. The Glass PDK solves this.
 
-The platform generates **317 "Golden" designs** (1,830 in the expanded library) that are impedance-matched, thermally reliable, and free of known patent conflicts. An 8-patent portfolio containing 75 claims covers the full design-to-manufacture flow, from automated BEM impedance extraction through Coffin-Manson reliability prediction to Monte Carlo yield analysis. An additional 28 IP library claims cover manufacturing-specific methods and glass composition optimization, bringing the total portfolio to 103 claims. The key materials innovation -- the **Bi-Metallic Shell architecture** -- reduces thermomechanical stress at the glass-metal interface by **25x**, transforming copper-in-glass vias from immediate-failure designs into structures that survive billions of thermal cycles.
+The platform generates **317 analytically screened design points** (parameter sweep, not individually validated; 1,830 in the expanded library) that are impedance-matched, thermally reliable, and free of known patent conflicts. An 8-patent portfolio containing 75 claims covers the full design-to-manufacture flow, from automated BEM impedance extraction through Coffin-Manson reliability prediction to Monte Carlo yield analysis. An additional 28 IP library claims cover manufacturing-specific methods and glass composition optimization, bringing the total portfolio to 103 claims. The key materials innovation -- the **Bi-Metallic Shell architecture** -- reduces thermomechanical stress at the glass-metal interface by **25x**, transforming copper-in-glass vias from immediate-failure designs into structures that survive billions of thermal cycles.
 
 **All results are computational.** No glass interposers have been fabricated. The physics solvers are validated against analytical solutions (BEM error 0.35% vs. coaxial closed-form) and published experimental literature (Sukumaran ECTC 2014, Watanabe ECTC 2015). The platform is assessed at Technology Readiness Level (TRL) 4-6.
 
@@ -95,7 +95,7 @@ COMSOL and Ansys HFSS can simulate individual structures, but they do not integr
 
 Intel and TSMC collectively hold 600+ patents on standard via structures (circular via, copper fill). Samsung's I-Cube and X-Cube portfolio adds another 80+ patents. Any company entering the glass interposer market without a design-around strategy faces significant IP risk -- $5-15M for a single patent infringement defense, $50-200M for a full portfolio assertion, and potentially $100M-1B+ in lost market access if an injunction is granted.
 
-The Glass PDK includes a generative design engine that systematically explores non-infringing architectures -- coaxial vias, elliptical geometries, graded material fills, bi-metallic shells -- and validates them against all physics constraints simultaneously. The 317 Golden Designs operate in a "patent desert" where incumbent patents (drafted for organic substrates and silicon interposers) do not apply.
+The Glass PDK includes a generative design engine that systematically explores non-infringing architectures -- coaxial vias, elliptical geometries, graded material fills, bi-metallic shells -- and validates them against all physics constraints simultaneously. The 317 analytically screened design points (parameter sweep, not individually validated) operate in a "patent desert" where incumbent patents (drafted for organic substrates and silicon interposers) do not apply.
 
 ---
 
@@ -392,13 +392,13 @@ Z0_analytical = (60 / sqrt(epsilon_r)) * ln(b/a)
 
 The solver is further validated against published measurements from Sukumaran (ECTC 2014) and Watanabe (ECTC 2015), and cross-validated against the 3D FDTD solver for non-trivial geometries.
 
-**Confidence:** HIGH -- standard BEM verification against known analytical result. Cross-validated against two independent published datasets.
+**Confidence:** MEDIUM -- BEM internal consistency check (compares solver to its own analytical formula, not independent FEM validation). Cross-checked against two published datasets (Sukumaran ECTC 2014, Watanabe ECTC 2015) but not against independent 3D FEM solvers.
 
 **Caveat:** The 0.35% accuracy is demonstrated for ideal circular coaxial geometry. Non-circular geometries (elliptical, rectangular, octagonal) lack closed-form solutions for direct comparison. The quasistatic assumption limits accuracy above approximately 77 GHz.
 
-### Result 4: Golden Design Library -- 317 Validated Designs
+### Result 4: Golden Design Library -- 317 Analytically Screened Design Points
 
-**Claim:** The generative design engine produces 317 production-ready Golden Designs from a search space of 41,700 candidates.
+**Claim:** The generative design engine produces 317 analytically screened design points (parameter sweep, not individually validated) from a search space of 41,700 candidates.
 
 **Methodology:** Combinatorial exploration across 4 geometry families (coaxial, elliptical, rectangular, octagonal), 6 metal fills (tungsten, molybdenum, GlidCop, copper, silver, graded composites), 3 structural types (solid, bi-metallic, porous), and 14 glass substrates. Three-stage filtering:
 
@@ -409,7 +409,7 @@ The solver is further validated against published measurements from Sukumaran (E
 | Stage 2: Patent safety filter | Risk assessment < "Low" | 765 |
 | Stage 3: Manufacturability filter | Technology Readiness Level > 4 | **317** |
 
-Each of the 317 Golden Designs includes complete characterization: impedance (Z0, RLGC), insertion loss, return loss, thermal drift, radial stress, safety factor, fatigue life, patent risk assessment, design rules, and Cpk yield prediction. The expanded library of 1,830 physics-validated designs is available for research exploration.
+Each of the 317 analytically screened design points includes complete characterization: impedance (Z0, RLGC), insertion loss, return loss, thermal drift, radial stress, safety factor, fatigue life, patent risk assessment, design rules, and Cpk yield prediction. The expanded library of 1,830 physics-validated designs is available for research exploration.
 
 **Confidence:** HIGH -- deterministic generation with fixed random seed (42). Every design independently verified for impedance, safety factor, and TRL.
 
@@ -614,7 +614,7 @@ NEXT = (1/4) * (K_C + K_L)
 FEXT = (1/2) * (K_C - K_L) * (v/l)
 ```
 
-The router evaluates three pattern families: hexagonal (highest density), checkerboard (best isolation), and genetic-algorithm-optimized (Pareto-optimal for a given density/isolation trade-off). The theoretical crosstalk floor for optimized patterns is -100 dB; practical floor after manufacturing effects is -60 to -80 dB.
+The router evaluates three pattern families: hexagonal (highest density), checkerboard (best isolation), and genetic-algorithm-optimized (Pareto-optimal for a given density/isolation trade-off). The practical crosstalk floor is -30 to -40 dB NEXT (empirically fitted to Sukumaran ECTC 2012; FEM validation required). The theoretical -100 dB limit from the Neumann integral is a mathematical bound that is not achievable in practice.
 
 ### Power Delivery Network Analyzer
 
@@ -658,7 +658,7 @@ The platform also includes solvers for: pad transition parasitic extraction (par
 
 ---
 
-## The 317 Golden Designs
+## The 317 Analytically Screened Design Points
 
 ### Design-Around Strategy: The "Patent Desert"
 
@@ -679,7 +679,7 @@ The advanced packaging industry faces a dense patent thicket. Intel holds 200+ p
   ==================            =====================         ==================
 ```
 
-Glass interposers operate in a region of design space that is physically distinct from both organic substrates (different dielectric constant, different CTE regime, different via formation process) and silicon interposers (different crystallinity, different etch process, different fill metallurgy, different form factor). The 317 Golden Designs exploit this patent desert systematically.
+Glass interposers operate in a region of design space that is physically distinct from both organic substrates (different dielectric constant, different CTE regime, different via formation process) and silicon interposers (different crystallinity, different etch process, different fill metallurgy, different form factor). The 317 analytically screened design points exploit this patent desert systematically.
 
 ### Material Innovation
 
@@ -790,7 +790,9 @@ The platform includes a validated material library of 14 commercial glasses and 
 | Gold | 2.44 | 14.2 | 79 | 317 |
 | Aluminium | 2.65 | 23.1 | 70 | 237 |
 
-### BEM Validation Results
+### BEM Internal Consistency Check
+
+*Note: The BEM "validation" below is an internal consistency check -- it compares the BEM solver to its own analytical formula (coaxial closed-form), not to independent FEM validation or fabrication measurements. True validation would require comparison with independent 3D FEM solvers (e.g., HFSS, CST) or measured data from fabricated TGVs.*
 
 | Test Case | Geometry | BEM Z0 (Ohm) | Reference Z0 (Ohm) | Error (%) | Source |
 |---|---|---|---|---|---|
@@ -835,11 +837,11 @@ The Glass PDK is protected by 8 provisional patent applications containing 75 cl
 
 ### Patent Strategy: Defensive Publication + Offensive Portfolio
 
-The 8 patent families cover the design methodology (how to create glass interposers), while the 317 Golden Designs represent specific implementations that can be defensively published to establish prior art. This creates a two-layer IP strategy:
+The 8 patent families cover the design methodology (how to create glass interposers), while the 317 analytically screened design points represent specific implementations that can be defensively published to establish prior art. This creates a two-layer IP strategy:
 
 1. **Method patents (75 claims):** Cover the automated design pipeline, the Bi-Metallic Shell concept, and the physics-constrained ML approach. Any competitor who builds a similar tool or uses the same stress-reduction concept would require a license.
 
-2. **Defensive publication (317 designs):** The Golden Designs, once published, establish prior art that prevents competitors from patenting specific material-geometry combinations. This creates a patent-free commons for Glass PDK licensees while blocking competitors from building their own patent thickets.
+2. **Defensive publication (317 design points):** The analytically screened design points, once published, establish prior art that prevents competitors from patenting specific material-geometry combinations. This creates a patent-free commons for Glass PDK licensees while blocking competitors from building their own patent thickets.
 
 3. **IP library (28 claims):** Manufacturing-specific methods that cover the full workflow from glass substrate selection through via formation to final test. These claims extend protection to the manufacturing process itself, not just the design methodology.
 
@@ -852,7 +854,7 @@ The 8 patent families cover the design methodology (how to create glass interpos
 **Challenge:** Next-generation GPU and TPU clusters require 100,000+ IOs with 1,000W+ power delivery, sub -40dB crosstalk between adjacent signal vias, and total packaging costs that scale with AI training budgets rather than semiconductor process costs.
 
 **Glass PDK Solution:**
-- **Array router** optimizes 100K+ bump patterns with GSSG ground shielding, achieving -60 to -80 dB practical crosstalk isolation
+- **Array router** optimizes 100K+ bump patterns with GSSG ground shielding, targeting -30 to -40 dB NEXT crosstalk isolation (empirically fitted to Sukumaran ECTC 2012; FEM validation required)
 - **Power delivery network analyzer** sizes TGV arrays for 100A+ current delivery with < 10 mV IR drop
 - **Fused silica substrate** provides the lowest dielectric loss (Df = 0.0001) for multi-GHz SerDes channels
 - **Panel-level glass processing** (510mm x 515mm panels) enables 4.2x cost reduction through throughput multiplication
@@ -950,12 +952,12 @@ The Glass PDK connects to other Genesis modules to create capabilities unavailab
 | Glass-specific material database | 14 glasses, 7 fills | User-entered (0 built-in) | Generic dielectrics | Organic-optimized |
 | TGV-specific physics solvers | Native (16+ solvers) | Manual FEA setup | EM only (no reliability) | No TGV models |
 | CTE/stress/reliability coupled | Automated pipeline | Separate tools, manual | Not available | Not available |
-| Patent-aware design generation | 317 Golden Designs | Not available | Not available | Not available |
+| Patent-aware design generation | 317 analytically screened design points | Not available | Not available | Not available |
 | Impedance targeting (automated) | Z0 = 50 +/- 5 Ohm | Manual iteration | Manual iteration | Manual iteration |
 | GDSII + S-param + SPICE export | Automated | Limited | S-param only | S-param only |
 | Monte Carlo yield prediction | 10K LHS, Cpk | Possible (manual setup) | Not available | Not available |
 | Cost per seat per year | License TBD | $50,000 | $80,000 | $60,000 |
-| Time to generate 317 designs | < 1 hour | ~6 months ($500K labor) | ~12 months ($2M licenses) | Not feasible |
+| Time to generate 317 design points | < 1 hour | ~6 months ($500K labor) | ~12 months ($2M licenses) | Not feasible |
 | ML surrogate acceleration | 1,000x (R2=0.9652) | Not available | Not available | Not available |
 
 **The Glass PDK is not an incremental improvement over existing tools.** It is a category-defining platform that integrates capabilities from four separate commercial tools (EM solver, stress analyzer, reliability predictor, yield simulator) into a single automated pipeline purpose-built for glass substrates. Replicating this capability from scratch would require 18-24 months of development and $5M+ in engineering investment.
@@ -1011,7 +1013,7 @@ The multi-physics simulation is sequentially coupled, not fully coupled. Joule h
 
 ### 6. Crosstalk Floor: Theoretical vs. Practical
 
-The -100 dB crosstalk figure represents the inductive coupling limit for optimized GSSG patterns calculated from the Neumann interaction integral. In practice, the achievable floor is -60 to -80 dB due to manufacturing defects, RDL routing escape paths, substrate mode coupling, and finite ground plane conductivity.
+The -100 dB crosstalk figure represents the inductive coupling limit for optimized GSSG patterns calculated from the Neumann interaction integral -- a mathematical bound not achievable in practice. Realistic NEXT performance is -30 to -40 dB (empirically fitted to Sukumaran ECTC 2012; FEM validation required). The gap between theoretical and practical is due to manufacturing defects, RDL routing escape paths, substrate mode coupling, finite ground plane conductivity, and other effects not captured by the analytical model.
 
 ### 7. Paris Law Initial Flaw Size
 
@@ -1023,7 +1025,7 @@ The surrogate model (R-squared = 0.9652) is trained on BEM solver outputs and in
 
 ### 9. Patent Risk Assessment Is Computational, Not Legal
 
-The patent conflict check is a computational analysis of claim language and design parameters. It is not a freedom-to-operate opinion from a licensed patent attorney. Any company using the Golden Designs in a commercial product should obtain independent legal review of the relevant patent landscape.
+The patent conflict check is a computational analysis of claim language and design parameters. It is not a freedom-to-operate opinion from a licensed patent attorney. Any company using the analytically screened design points in a commercial product should obtain independent legal review of the relevant patent landscape.
 
 ### 10. What This Platform Is and Is Not
 
