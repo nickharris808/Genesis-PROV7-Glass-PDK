@@ -33,7 +33,7 @@ No full claim text is reproduced in this public repository. The summaries below 
 
 **Scope:** A method for co-optimizing the coefficient of thermal expansion (CTE) match between via fill materials and glass substrates across the full temperature range (-40C to +150C). Includes the Bi-Metallic Shell architecture where a CTE-matched liner (tungsten or molybdenum) is placed between the glass and a conductive core (copper), reducing radial stress at the interface below the glass fracture strength.
 
-**Key innovation:** CTE matching within 2.0 ppm/K reduces thermomechanical stress by 25x, converting glass interposers from fragile structures to designs that survive billions of thermal cycles.
+**Key innovation:** CTE matching within 2.0 ppm/K reduces thermomechanical stress by 25x, converting glass interposers from fragile structures to designs that survive >10 million thermal cycles (Coffin-Manson/Basquin, capped by secondary failure per IPC-SM-785).
 
 ---
 

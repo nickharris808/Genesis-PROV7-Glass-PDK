@@ -14,7 +14,7 @@ The Glass PDK is the first simulation platform purpose-built for Through-Glass V
 
 Glass substrates are poised to disrupt the $500 billion AI packaging market. At volume, glass interposers deliver a **2-4x cost advantage** over silicon CoWoS (validated against 5 commercial glass suppliers), with 10x superior thermal dimensional stability, lower dielectric loss at millimeter-wave frequencies, and the ability to scale to panel-level processing at sizes up to 510mm x 515mm -- more than 4x the area of a 300mm silicon wafer. The fundamental challenge preventing adoption is design complexity: no existing Process Design Kit (PDK) addresses the coupled thermal-mechanical-electrical physics unique to glass. The Glass PDK solves this.
 
-The platform generates **317 analytically screened design points** (parameter sweep, not individually validated; 1,830 in the expanded library) that are impedance-matched, thermally reliable, and free of known patent conflicts. An 8-patent portfolio containing 75 claims covers the full design-to-manufacture flow, from automated BEM impedance extraction through Coffin-Manson reliability prediction to Monte Carlo yield analysis. An additional 28 IP library claims cover manufacturing-specific methods and glass composition optimization, bringing the total portfolio to 103 claims. The key materials innovation -- the **Bi-Metallic Shell architecture** -- reduces thermomechanical stress at the glass-metal interface by **25x**, transforming copper-in-glass vias from immediate-failure designs into structures that survive billions of thermal cycles.
+The platform generates **317 analytically screened design points** (parameter sweep, not individually validated; 1,830 in the expanded library) that are impedance-matched, thermally reliable, and free of known patent conflicts. An 8-patent portfolio containing 75 claims covers the full design-to-manufacture flow, from automated BEM impedance extraction through Coffin-Manson reliability prediction to Monte Carlo yield analysis. An additional 28 IP library claims cover manufacturing-specific methods and glass composition optimization, bringing the total portfolio to 103 claims. The key materials innovation -- the **Bi-Metallic Shell architecture** -- reduces thermomechanical stress at the glass-metal interface by **25x**, transforming copper-in-glass vias from immediate-failure designs into structures that survive >10 million thermal cycles (Coffin-Manson/Basquin, capped by secondary failure per IPC-SM-785).
 
 **All results are computational.** No glass interposers have been fabricated. The physics solvers are validated against analytical solutions (BEM error 0.35% vs. coaxial closed-form) and published experimental literature (Sukumaran ECTC 2014, Watanabe ECTC 2015). The platform is assessed at Technology Readiness Level (TRL) 4-6.
 
@@ -246,11 +246,11 @@ The Bi-Metallic Shell solves this by introducing a thin liner of CTE-matched mat
 | Standard copper fill | Cu (electroplated) | 16.5 | 184.2 | 0.22 | 0 | Cracks on first cooling |
 | Bi-Metallic Shell (W liner) | W liner + Cu core | 5.1 | 7.2 | 5.56 | > 1,000 | Survives consumer qualification |
 | CTE-matched composite | Cu-W 75/25 | 8.3 | 42.1 | 0.95 | ~100 | Marginal -- near fracture limit |
-| GlidCop + Schott 8250 | GlidCop AL-25 | 6.6 | 1.2 | 33.3 | > 10 billion | Survives automotive + aerospace |
+| GlidCop + Schott 8250 | GlidCop AL-25 | 6.6 | 1.2 | 33.3 | > 10 million (capped per IPC-SM-785) | Survives automotive + aerospace |
 | Tungsten solid fill | W (CVD) | 4.5 | 10.3 | 3.88 | > 100,000 | Survives industrial qualification |
 | Molybdenum solid fill | Mo (CVD) | 4.8 | 12.8 | 3.13 | > 50,000 | Survives industrial qualification |
 
-This is not a minor improvement. It is the difference between a technology that does not work and one that works reliably in automotive and aerospace environments. The best material combination -- GlidCop AL-25 (oxide-dispersion-strengthened copper, CTE 6.6 ppm/K) paired with Schott 8250 glass (CTE 9.1 ppm/K) -- achieves a safety factor of 33.3x, corresponding to a predicted lifetime of 67 billion thermal cycles under JEDEC JESD22-A104 qualification. This is effectively infinite for any conceivable application.
+This is not a minor improvement. It is the difference between a technology that does not work and one that works reliably in automotive and aerospace environments. The best material combination -- GlidCop AL-25 (oxide-dispersion-strengthened copper, CTE 6.6 ppm/K) paired with Schott 8250 glass (CTE 9.1 ppm/K) -- achieves a safety factor of 33.3x, corresponding to a predicted lifetime of >10 million thermal cycles (Coffin-Manson/Basquin, capped by secondary failure mechanisms per IPC-SM-785) under JEDEC JESD22-A104 qualification.
 
 ### 3. Analytical Lame Stress Solution
 
@@ -570,7 +570,7 @@ delta_K = sigma * sqrt(pi * a) * F(a/t)
 
 Where F(a/t) is a geometry correction factor for the wall thickness ratio.
 
-**Key result:** For the GlidCop + Schott 8250 combination, the predicted lifetime is 67 billion cycles -- effectively infinite for any industrial application.
+**Key result:** For the GlidCop + Schott 8250 combination, the predicted lifetime is >10 million cycles (Coffin-Manson/Basquin, capped by secondary failure mechanisms per IPC-SM-785).
 
 ### Monte Carlo Yield Simulator
 
@@ -880,7 +880,7 @@ The 8 patent families cover the design methodology (how to create glass interpos
 
 **Glass PDK Solution:**
 - **Coffin-Manson and Paris Law solvers** predict lifetime under standardized thermal cycling profiles with quantified safety margins
-- **Bi-Metallic Shell** with Schott 8250 glass (CTE 9.1 ppm/K) and GlidCop AL-25 fill (CTE 6.6 ppm/K) achieves safety factor of 33.3, corresponding to 67 billion predicted thermal cycles
+- **Bi-Metallic Shell** with Schott 8250 glass (CTE 9.1 ppm/K) and GlidCop AL-25 fill (CTE 6.6 ppm/K) achieves safety factor of 33.3, corresponding to >10 million predicted thermal cycles (capped per IPC-SM-785)
 - **Thermal stability** of glass (0.19% Z0 drift) eliminates the need for software temperature compensation, reducing system complexity and certification cost
 - **Fused silica option** provides radiation hardness for aerospace applications (space-qualified glass substrate)
 
