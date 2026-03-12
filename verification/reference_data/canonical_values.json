@@ -78,7 +78,7 @@
   },
   "ml_surrogate": {
     "r_squared": 0.9652,
-    "physics_constraint": "monotonicity of fatigue life vs stress",
+    "physics_constraint": "non-negativity of physical outputs (Z0, loss, stress)",
     "training_samples": 10000,
     "design_space_coverage": {
       "diameter_range_um": [20, 100],

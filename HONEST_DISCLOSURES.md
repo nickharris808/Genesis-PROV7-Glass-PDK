@@ -113,16 +113,18 @@ The coupling is one-directional. Specifically:
 
 ## 6. Crosstalk Floor: Theoretical vs. Practical
 
-The array router reports a theoretical crosstalk floor of -100 dB for optimized GSSG patterns. This figure represents the inductive coupling limit calculated from the Neumann interaction integral in the far-field approximation.
+The array router previously reported a theoretical crosstalk floor of -100 dB for optimized GSSG patterns. **This figure has been retracted** following the Feb 2026 audit: it represents the inductive coupling limit calculated from the Neumann interaction integral in the far-field approximation, but this calculation is circular (the BEM solver validates against its own analytical formula, not independent measurement).
 
-**In practice, the achievable crosstalk floor is -60 to -80 dB** due to:
+**The practical crosstalk floor is -25 to -40 dB** (per corrected SCIENCE_NOTES) due to:
 - Manufacturing defects (via position errors, metal thickness variation)
 - RDL routing escape paths that create unintended coupling
 - Substrate mode coupling at high frequencies
 - Finite ground plane conductivity
 - Package-level coupling through shared power distribution
 
-The -100 dB figure is useful as a design target to demonstrate the capability of the optimization algorithm. It should not be quoted as an achievable specification for a manufactured product.
+The previous -60 to -80 dB practical range and -100 dB theoretical figure were both overstated. The -25 to -40 dB range reflects realistic expectations for manufactured glass interposers.
+
+**Additional disclosure -- Impedance mismatch:** The BEM solver's "50 Ohm" designs actually produce 9-15 Ohm impedance in practice. The 0.35% solver accuracy is verified only against the coaxial cable analytical formula, which is the same formula the BEM solver implements -- this is a circular validation (solver vs. its own formula), not an independent check.
 
 ---
 

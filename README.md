@@ -1235,6 +1235,9 @@ The Glass PDK does not exist in isolation. It connects to the broader Genesis pl
 | Via fence isolation (3 rows) | +48 dB | +65 dB | +38 dB |
 | EBG isolation (4 cells) | +64 dB | +40 dB | +75 dB |
 | Total achieved isolation | -134 dB | -127 dB | -131 dB |
+
+> **[RETRACTED: These values are physically impossible. Corrected practical isolation: -25 to -40 dB. See SCIENCE_NOTES.md]**
+
 | Design automation | **Seconds** | Months | Months |
 | Patent-safe designs | **Yes (765, 605 TRL>4)** | N/A | N/A |
 
