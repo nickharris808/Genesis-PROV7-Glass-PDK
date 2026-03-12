@@ -269,9 +269,9 @@ def check_golden_designs(cv: dict) -> bool:
     monotonic = total > physics > patent >= mfg
     print(f"\n  Filtering monotonic?        {PASS_SYMBOL if monotonic else FAIL_SYMBOL}")
 
-    # Verify golden count >= 317
-    count_pass = golden >= 317
-    print(f"  Golden count >= 317?        {PASS_SYMBOL if count_pass else FAIL_SYMBOL} ({golden})")
+    # Verify golden count >= 605
+    count_pass = golden >= 605
+    print(f"  Golden count >= 605?        {PASS_SYMBOL if count_pass else FAIL_SYMBOL} ({golden})")
 
     # Verify manufacturability equals golden
     match_pass = mfg == golden
@@ -355,7 +355,7 @@ def main():
     results.append(("Check 1: Cost advantage > 5x (substrate)", check_cost_advantage(cv)))
     results.append(("Check 2: Lame stress safety factor", check_lame_safety_factor(cv)))
     results.append(("Check 3: BEM accuracy < 0.5%", check_bem_accuracy(cv)))
-    results.append(("Check 4: Golden designs >= 317", check_golden_designs(cv)))
+    results.append(("Check 4: Golden designs >= 605", check_golden_designs(cv)))
     results.append(("Check 5: Bi-metallic stress reduction > 20x", check_bimetallic_reduction(cv)))
 
     # Summary

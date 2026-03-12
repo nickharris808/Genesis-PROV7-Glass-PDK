@@ -20,8 +20,8 @@
     "total_candidates_explored": 41700,
     "physics_filtered": 1830,
     "patent_filtered": 765,
-    "manufacturability_filtered": 317,
-    "golden_count": 317,
+    "manufacturability_filtered": 605,
+    "golden_count": 605,
     "expanded_library_count": 1830,
     "geometry_families": ["coaxial", "elliptical", "rectangular", "octagonal"],
     "metal_fills": ["tungsten", "molybdenum", "glidcop", "copper", "silver", "graded_composite"],
@@ -49,6 +49,7 @@
       "glass_dk": 4.6,
       "freq_hz": 28e9
     },
+    "caveat": "The 50.28 Ohm BEM result is for the specific coaxial test geometry above (D=50um, P=100um, dk=4.6). For smaller pitch-to-diameter ratios (e.g., D=50um, P=80um), the BEM solver may produce significantly lower Z0 (~18 Ohm) due to strong capacitive coupling between adjacent vias. The 50.28 Ohm value should not be generalized to all TGV geometries without re-running the solver for each design point.",
     "validation_references": [
       "Sukumaran ECTC 2014",
       "Watanabe ECTC 2015",
