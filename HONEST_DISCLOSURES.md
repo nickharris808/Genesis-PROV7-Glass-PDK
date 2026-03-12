@@ -124,7 +124,7 @@ The array router previously reported a theoretical crosstalk floor of -100 dB fo
 
 The previous -60 to -80 dB practical range and -100 dB theoretical figure were both overstated. The -25 to -40 dB range reflects realistic expectations for manufactured glass interposers.
 
-**Additional disclosure -- Impedance mismatch:** The BEM solver's "50 Ohm" designs actually produce 9-15 Ohm impedance in practice. The 0.35% solver accuracy is verified only against the coaxial cable analytical formula, which is the same formula the BEM solver implements -- this is a circular validation (solver vs. its own formula), not an independent check.
+**Additional disclosure -- Impedance mismatch:** The BEM solver uses a coaxial approximation that produces Z0 in the range of 9-18 Ohm for designs that target 50 Ohm. This is because the coaxial formula `Z0 = (60/sqrt(er)) * ln(b/a)` with realistic TGV geometries (small pitch-to-diameter ratios, high-Dk glass) inherently yields low impedance values. The 0.35% solver accuracy is verified only against this same coaxial cable analytical formula -- this is a circular validation (solver vs. its own formula), not an independent check. The "50 Ohm" label in golden design kits does not reflect the actual computed impedance.
 
 ---
 
@@ -150,15 +150,27 @@ All material properties (dielectric constant, CTE, fracture strength, resistivit
 
 ## 9. ML Surrogate: Training Data Limitations
 
-The physics-constrained surrogate model (R-squared = 0.9652) is trained on outputs from the BEM solver. The surrogate inherits all limitations of the BEM solver. Additionally:
+The surrogate model (R-squared = 0.9652) is trained on outputs from the BEM solver. The surrogate inherits all limitations of the BEM solver. Additionally:
 
 - The training data covers a specific region of the design space (via diameter 20-100 um, pitch 50-500 um, frequency 1-77 GHz). Extrapolation outside this range is not validated.
-- The physics-violation penalty enforces monotonicity but does not enforce all physical constraints (e.g., it does not enforce causality in S-parameters).
+- **The "physics constraint" is non-negativity only.** The implemented code penalizes negative output values using `ReLU(-y_pred)`. It does **not** implement the gradient-based monotonicity enforcement described in the patent application (Provisional Patent 4). The patent claims a loss term that penalizes positive `dLife/dStress` gradients; the code only enforces `Z0 >= 0`, `Loss >= 0`, etc. This is standard ReLU non-negativity clamping, not a meaningful physics constraint.
 - The surrogate has not been validated against independent experimental data.
 
 ---
 
-## 10. What This Platform Is and Is Not
+## 10. GDSII Export: Not Validated with Real Tools
+
+The GDSII export (`gdsii_export.py`) is a pure Python implementation that writes binary GDSII-II format files. **This output has never been validated with industry-standard GDSII readers** (e.g., Cadence Virtuoso, Mentor Calibre, KLayout, or any mask shop DRC tool).
+
+**What this means:**
+- The binary format may contain structural errors that cause real GDSII readers to reject the files
+- Layer assignments, coordinate scaling, and polygon winding order have not been verified against any EDA tool
+- The output should be considered a demonstration of the data flow concept, not a manufacturing-ready artifact
+- Before any fabrication, the GDSII output must be validated with an industry tool and corrected as needed
+
+---
+
+## 11. What This Platform Is and Is Not
 
 **The Glass PDK IS:**
 - A validated computational design tool for TGV interposer design

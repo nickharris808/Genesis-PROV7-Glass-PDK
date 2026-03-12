@@ -174,6 +174,8 @@ This codebase constitutes the **Reduction to Practice** for the following 8 Prov
 **Implementation:** `glass_pdk/ml/surrogate.py`
 **Key Claim:**
 > "A method for training a neural network surrogate, wherein the loss function includes a physics-violation penalty term that enforces monotonicity of fatigue life with respect to stress, ensuring physical consistency in untrained regions."
+>
+> **Note:** The current implementation (`surrogate.py`) enforces only non-negativity of outputs (ReLU clamping), not gradient-based monotonicity as described in the patent claim. See `HONEST_DISCLOSURES.md` section 9.
 
 ### Patent 5: Method (Manufacturing Yield Prediction)
 **Title:** Method for Predicting Manufacturing Yield of Through-Glass Vias Using Latin Hypercube Sampling of Process Tolerances
@@ -1485,7 +1487,7 @@ We welcome contributions from physicists, material scientists, and EDA developer
 The Glass PDK represents a paradigm shift in semiconductor packaging. By moving from **empirical trial-and-error** to **predictive physics simulation**, we unlock:
 
 1.  **Speed:** Feasibility studies in seconds, not weeks.
-2.  **Reliability:** "Immortal" designs guaranteed by first-principles mechanics.
+2.  **Reliability:** Design candidates evaluated by first-principles mechanics (simulated, not fab-validated).
 3.  **Cost:** A validated 2-4x reduction in total cost vs Silicon CoWoS (see `validated_cost_model.py`).
 4.  **IP:** A defensible moat of 8 provisional patents and 765 novel architectures (605 TRL>4).
 
@@ -2867,7 +2869,7 @@ We welcome contributions from physicists, material scientists, and EDA developer
 The Glass PDK represents a paradigm shift in semiconductor packaging. By moving from **empirical trial-and-error** to **predictive physics simulation**, we unlock:
 
 1.  **Speed:** Feasibility studies in seconds, not weeks.
-2.  **Reliability:** "Immortal" designs guaranteed by first-principles mechanics.
+2.  **Reliability:** Design candidates evaluated by first-principles mechanics (simulated, not fab-validated).
 3.  **Cost:** A validated 2-4x reduction in total cost vs Silicon CoWoS (see `validated_cost_model.py`).
 4.  **IP:** A defensible moat of 8 provisional patents and 765 novel architectures (605 TRL>4).
 

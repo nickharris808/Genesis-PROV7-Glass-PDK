@@ -57,7 +57,7 @@ No full claim text is reproduced in this public repository. The summaries below 
 
 **Scope:** A method for training a neural network surrogate model where the loss function includes a physics-violation penalty term that enforces monotonicity of fatigue life with respect to stress. The surrogate replaces full BEM simulation for rapid design space exploration while ensuring physical consistency in untrained regions of the parameter space.
 
-**Key innovation:** Physics-constrained ML achieves R-squared = 0.9652 with guaranteed physical monotonicity, enabling 1000x faster design iteration than direct solver evaluation.
+**Key innovation:** The ML surrogate achieves R-squared = 0.9652, enabling 1000x faster design iteration than direct solver evaluation. The "physics constraint" is a non-negativity penalty (ReLU on negative outputs) -- not a true monotonicity enforcement via gradient penalties as described in the patent claims. The patent describes gradient-based monotonicity constraints, but the implemented code uses only output non-negativity.
 
 ---
 
