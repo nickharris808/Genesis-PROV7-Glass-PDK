@@ -136,4 +136,16 @@ No full claim text is reproduced in this public repository. The summaries below 
 
 ---
 
+---
+
+## Important Disclosure: BEM Solver Impedance Accuracy
+
+The BEM solver uses a coaxial approximation (`Z0 = (60/sqrt(er)) * ln(b/a)`) that produces characteristic impedance values in the range of **9-18 Ohm** for typical TGV geometries targeting 50 Ohm. This is an inherent property of the coaxial model applied to realistic TGV pitch-to-diameter ratios and high-Dk glass substrates — the small `ln(b/a)` ratio drives impedance well below 50 Ohm.
+
+The claimed 0.35% solver accuracy is verified only against this same coaxial analytical formula (solver vs. its own reference formula), which is a circular validation, not an independent experimental check. The "50 Ohm" labels that appear in golden design kits (e.g., `build_golden_50ohm/`) reflect the target specification, **not the actual computed impedance**.
+
+For full details on solver limitations and validation boundaries, see `HONEST_DISCLOSURES.md` (Section 2: BEM Solver Accuracy and Section 6: Crosstalk Floor, which includes the impedance mismatch disclosure).
+
+---
+
 **Note:** This summary is provided for informational purposes only. Full claim text, dependent claim hierarchies, and prosecution details are maintained in the confidential data room (PROV_7_GLASS_PDK). No patent claim text is reproduced in this public repository.
